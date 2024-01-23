@@ -11,8 +11,9 @@ const ItemTypes = {
 export interface CardProps {
     id: number
     text: string
-    index: number
-    moveCard: (dragIndex: number, hoverIndex: number) => void
+    index: number,
+    columnIndex: number
+    moveCard: (dragIndex: number, hoverIndex: number, columnIndex: number) => void
 }
 
 interface DragItem {
@@ -21,7 +22,7 @@ interface DragItem {
     type: string
 }
 
-export const Card: FC<CardProps> = ({ id, text, index, moveCard }) => {
+export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex }) => {
     const ref = useRef<HTMLDivElement>(null)
     const [{ handlerId }, drop] = useDrop<
         DragItem,
@@ -74,7 +75,7 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard }) => {
             }
 
             // Time to actually perform the action
-            moveCard(dragIndex, hoverIndex)
+            moveCard(dragIndex, hoverIndex, columnIndex)
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,

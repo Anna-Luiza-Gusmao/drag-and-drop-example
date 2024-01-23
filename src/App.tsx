@@ -10,10 +10,13 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container>
-        <h1>Teste da Funcionalidade Drag and Drop do React</h1>
+        <header>
+          <h1>Teste da Funcionalidade Drag and Drop do React</h1>
+          <h2>Arraste os cards disponíveis em cada coluna para cima e para baixo. Tente também movimentar os cards entre as colunas.</h2>
+        </header>
         <DndProvider backend={HTML5Backend}>
-					<Example />
-				</DndProvider>
+          <Example />
+        </DndProvider>
       </Container>
 
       <GlobalStyle />

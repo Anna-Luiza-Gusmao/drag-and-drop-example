@@ -10,7 +10,17 @@ export const Container = styled.div`
 
     padding: 4rem;
 
+    header {
+        width: 60%;
+        text-align: center;
+    }
+
     h1 {
         font-weight: 500;
+        padding-bottom: 1rem;
+    }
+
+    h2 {
+        font-weight: 400;
     }
 `
