@@ -13,7 +13,7 @@ export interface CardProps {
     text: string
     index: number,
     columnIndex: number
-    moveCard: (dragIndex: number, hoverIndex: number, columnIndex: number) => void
+    moveCard: (dragIndex: number, hoverIndex: number, dragColumnIndex: number, columnIndex: number) => void
 }
 
 interface DragItem {
@@ -78,7 +78,7 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex }) 
                 return
             }
 
-            moveCard(dragIndex, hoverIndex, hoverColumnIndex)
+            moveCard(dragIndex, hoverIndex, dragColumnIndex, hoverColumnIndex)
             item.index = hoverIndex
             item.columnIndex = hoverColumnIndex
         },

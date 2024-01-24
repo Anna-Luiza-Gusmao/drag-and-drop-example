@@ -17,21 +17,55 @@ export function Example() {
   {
     const [cards, setCards] = useState(CardsList.cardsList)
 
-    const moveCard = useCallback((dragIndex: number, hoverIndex: number, hoverColumnIndex: number) => {
+    const moveCard = useCallback((dragIndex: number, hoverIndex: number, dragColumnIndex: number, hoverColumnIndex: number) => {
       setCards((prevCards) => {
         const updatedCards = { ...prevCards }
 
-        const columnKey = hoverColumnIndex === 0 ? 'toDo' : (hoverColumnIndex === 1 ? 'inProgress' : 'done')
+        const dragColumnKey =
+          dragColumnIndex === 0
+            ? 'toDo'
+            : dragColumnIndex === 1
+              ? 'inProgress'
+              : 'done'
 
-        const cardsInColumn = [...updatedCards[columnKey]]
+        const hoverColumnKey =
+          hoverColumnIndex === 0
+            ? 'toDo'
+            : hoverColumnIndex === 1
+              ? 'inProgress'
+              : 'done'
 
-        const [draggedCard] = cardsInColumn.splice(dragIndex, 1)
-        cardsInColumn.splice(hoverIndex, 0, draggedCard)
+        const cardsInHoverColumn = [...updatedCards[hoverColumnKey]]
 
-        draggedCard.columnIndex = hoverColumnIndex
-        updatedCards[columnKey] = cardsInColumn
+        if (dragColumnKey !== hoverColumnKey) {
+          const cardsInDragColumn = [...updatedCards[dragColumnKey]]
+          
+          const [draggedCard] = cardsInDragColumn.splice(dragIndex, 1)
+          draggedCard.columnIndex = hoverColumnIndex
 
-        return updatedCards
+          cardsInHoverColumn.splice(hoverIndex, 0, draggedCard)
+          cardsInHoverColumn.forEach((card, index) => {
+            card.id = index + 1
+          })
+
+          cardsInDragColumn.forEach((card, index) => {
+            card.id = index + 1
+          })
+
+          updatedCards[dragColumnKey] = cardsInDragColumn
+          updatedCards[hoverColumnKey] = cardsInHoverColumn
+
+          return updatedCards
+
+        } else {
+          const [draggedCard] = cardsInHoverColumn.splice(dragIndex, 1)
+          cardsInHoverColumn.splice(hoverIndex, 0, draggedCard)
+
+          draggedCard.columnIndex = hoverColumnIndex
+          updatedCards[hoverColumnKey] = cardsInHoverColumn
+
+          return updatedCards
+        }
       })
     }, [])
 
