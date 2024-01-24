@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     }
     
     body, input, textarea, button, a, select, option {
-        font-family: Inter, sans-serif;
+        font-family: 'Roboto', sans-serif;
         font-weight: 400;   
         font-size: 1rem;
         color: ${props => props.theme.colors.white};

@@ -19,7 +19,8 @@ export interface CardProps {
 interface DragItem {
     index: number
     id: string
-    type: string
+    type: string,
+    columnIndex: number
 }
 
 export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex }) => {
@@ -42,8 +43,11 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex }) 
             const dragIndex = item.index
             const hoverIndex = index
 
+            const dragColumnIndex = item.columnIndex
+            const hoverColumnIndex = columnIndex
+
             // Don't replace items with themselves
-            if (dragIndex === hoverIndex) {
+            if (dragIndex === hoverIndex && dragColumnIndex === hoverColumnIndex) {
                 return
             }
 
@@ -74,21 +78,16 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex }) 
                 return
             }
 
-            // Time to actually perform the action
-            moveCard(dragIndex, hoverIndex, columnIndex)
-
-            // Note: we're mutating the monitor item here!
-            // Generally it's better to avoid mutations,
-            // but it's good here for the sake of performance
-            // to avoid expensive index searches.
+            moveCard(dragIndex, hoverIndex, hoverColumnIndex)
             item.index = hoverIndex
+            item.columnIndex = hoverColumnIndex
         },
     })
 
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.CARD,
         item: () => {
-            return { id, index }
+            return { id, index, columnIndex }
         },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
