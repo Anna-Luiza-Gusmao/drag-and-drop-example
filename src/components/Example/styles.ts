@@ -2,8 +2,31 @@ import styled from "styled-components"
 
 export const DragAndDropContainer = styled.section`
     display: flex;
+    justify-content: center;
     flex: 1;
     gap: 2rem;
+    max-height: 80%;
+    padding: 1rem;
+
+    width: 100%;
+    overflow-x: auto;
+
+    scrollbar-width: auto;
+    scrollbar-color: ${props => props.theme.colors["blue-600"]} ${props => props.theme.colors["green-100"]};
+  
+    &::-webkit-scrollbar {
+        height: 0.5rem;
+    }
+  
+    &::-webkit-scrollbar-track {
+        background-color: ${props => props.theme.colors["green-100"]};
+        border-radius: 8px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+        background: ${props => props.theme.colors["blue-600"]};
+        border-radius: 8px;
+    }
 `
 
 export const ColumnBox = styled.div`
@@ -38,4 +61,23 @@ export const CardsContainer = styled.div`
     -webkit-box-shadow: 3px 9px 42px -6px ${props => props.theme.colors["black-700"]};
     -moz-box-shadow: 3px 9px 42px -6px ${props => props.theme.colors["black-700"]};
     box-shadow: 3px 9px 42px -6px ${props => props.theme.colors["black-700"]};
+
+    overflow-y: auto;
+
+    scrollbar-width: auto;
+    scrollbar-color: ${props => props.theme.colors["blue-600"]} ${props => props.theme.colors["green-100"]};
+  
+    &::-webkit-scrollbar {
+        width: 0.5rem;
+    }
+  
+    &::-webkit-scrollbar-track {
+        background-color: ${props => props.theme.colors["green-100"]};
+        border-radius: 8px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+        background: ${props => props.theme.colors["blue-600"]};
+        border-radius: 8px;
+    }
 `
