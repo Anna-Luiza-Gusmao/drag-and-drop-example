@@ -11,8 +11,9 @@ const ItemTypes = {
 export interface CardProps {
     id: number
     text: string
-    index: number,
+    index: number
     columnIndex: number
+    invisible: boolean
     moveCard: (dragIndex: number, hoverIndex: number, dragColumnIndex: number, columnIndex: number) => void
 }
 
@@ -23,7 +24,7 @@ interface DragItem {
     columnIndex: number
 }
 
-export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex }) => {
+export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex, invisible }) => {
     const ref = useRef<HTMLDivElement>(null)
     const [{ handlerId }, drop] = useDrop<
         DragItem,
@@ -97,7 +98,7 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex }) 
     drag(drop(ref))
 
     return (
-        <CardContainer ref={ref} data-handler-id={handlerId} $isDragging={isDragging}>
+        <CardContainer ref={ref} data-handler-id={handlerId} $isDragging={isDragging} $invisible={invisible}>
             {text}
         </CardContainer>
     )

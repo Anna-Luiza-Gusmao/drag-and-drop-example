@@ -17,6 +17,28 @@ export function Example() {
   {
     const [cards, setCards] = useState(CardsList.cardsList)
 
+    function ensureNonEmptyArrays(hoverColumnIndex: string, cardsList: any) {
+      const columnKeys = Object.keys(cardsList)
+      const columnIndex =
+        hoverColumnIndex === 'toDo' ? 0
+          : hoverColumnIndex === 'inProgress' ? 1
+            : 2
+
+      columnKeys.forEach((key) => {
+        if (!cardsList[key].length) {
+          cardsList[key].push({
+            id: 1,
+            text: "Arraste um item para essa coluna",
+            columnIndex: columnIndex,
+          })
+        }
+
+        if (cardsList[key].length === 2) cardsList[key] = cardsList[key].filter((card: Item) => card.text !== "Arraste um item para essa coluna")
+      })
+
+      return cardsList
+    }
+
     const moveCard = useCallback((dragIndex: number, hoverIndex: number, dragColumnIndex: number, hoverColumnIndex: number) => {
       setCards((prevCards) => {
         const updatedCards = { ...prevCards }
@@ -39,7 +61,7 @@ export function Example() {
 
         if (dragColumnKey !== hoverColumnKey) {
           const cardsInDragColumn = [...updatedCards[dragColumnKey]]
-          
+
           const [draggedCard] = cardsInDragColumn.splice(dragIndex, 1)
           draggedCard.columnIndex = hoverColumnIndex
 
@@ -55,7 +77,9 @@ export function Example() {
           updatedCards[dragColumnKey] = cardsInDragColumn
           updatedCards[hoverColumnKey] = cardsInHoverColumn
 
-          return updatedCards
+          ensureNonEmptyArrays(hoverColumnKey, updatedCards)
+
+          return ensureNonEmptyArrays(hoverColumnKey, updatedCards)
 
         } else {
           const [draggedCard] = cardsInHoverColumn.splice(dragIndex, 1)
@@ -71,16 +95,31 @@ export function Example() {
 
     const renderCard = useCallback(
       (card: { id: number; text: string; columnIndex: number }, index: number) => {
-        return (
-          <Card
-            key={card.id}
-            index={index}
-            id={card.id}
-            text={card.text}
-            columnIndex={card.columnIndex}
-            moveCard={moveCard}
-          />
-        )
+        if (card.text === "Arraste um item para essa coluna") {
+          return (
+            <Card
+              key={card.id}
+              index={index}
+              id={card.id}
+              text={card.text}
+              columnIndex={card.columnIndex}
+              moveCard={moveCard}
+              invisible={true}
+            />
+          )
+        } else {
+          return (
+            <Card
+              key={card.id}
+              index={index}
+              id={card.id}
+              text={card.text}
+              columnIndex={card.columnIndex}
+              moveCard={moveCard}
+              invisible={false}
+            />
+          )
+        }
       },
       [moveCard],
     )
