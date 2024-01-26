@@ -32,8 +32,6 @@ export function Example() {
             columnIndex: columnIndex,
           })
         }
-
-        if (cardsList[key].length === 2) cardsList[key] = cardsList[key].filter((card: Item) => card.text !== "Arraste um item para essa coluna")
       })
 
       return cardsList
@@ -77,9 +75,14 @@ export function Example() {
           updatedCards[dragColumnKey] = cardsInDragColumn
           updatedCards[hoverColumnKey] = cardsInHoverColumn
 
-          ensureNonEmptyArrays(hoverColumnKey, updatedCards)
+          ensureNonEmptyArrays(dragColumnKey, updatedCards)
+          const newCards = ensureNonEmptyArrays(hoverColumnKey, updatedCards)
 
-          return ensureNonEmptyArrays(hoverColumnKey, updatedCards)
+          if (newCards[hoverColumnKey].length === 2) {
+            newCards[hoverColumnKey] = newCards[hoverColumnKey].filter((card: Item) => card.text !== "Arraste um item para essa coluna")
+          }
+
+          return newCards
 
         } else {
           const [draggedCard] = cardsInHoverColumn.splice(dragIndex, 1)
