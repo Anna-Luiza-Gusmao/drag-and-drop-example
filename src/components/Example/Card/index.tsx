@@ -32,7 +32,6 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex, ty
         accept: ItemTypes.CARD,
         collect(monitor) {
             return {
-                canDrop: monitor.canDrop(),
                 handlerId: monitor.getHandlerId()
             }
         },

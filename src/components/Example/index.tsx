@@ -59,6 +59,8 @@ export function Example() {
 
         const cardsInHoverColumn = [...updatedCards[hoverColumnKey]]
 
+        if ([...updatedCards[dragColumnKey]][dragIndex].type === "invisible_card") return updatedCards
+
         if (dragColumnKey !== hoverColumnKey) {
           const cardsInDragColumn = [...updatedCards[dragColumnKey]]
 
