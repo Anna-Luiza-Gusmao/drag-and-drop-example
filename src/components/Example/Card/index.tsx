@@ -3,10 +3,7 @@ import type { FC } from 'react'
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { CardContainer } from './styles'
-
-const ItemTypes = {
-    CARD: 'card',
-}
+import { ItemTypes } from '../types/ItemTypes'
 
 export interface CardProps {
     id: number
@@ -14,17 +11,18 @@ export interface CardProps {
     index: number
     columnIndex: number
     invisible: boolean
+    type: string
     moveCard: (dragIndex: number, hoverIndex: number, dragColumnIndex: number, columnIndex: number) => void
 }
 
 interface DragItem {
     index: number
     id: string
-    type: string,
+    type: string
     columnIndex: number
 }
 
-export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex, invisible }) => {
+export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex, type, invisible }) => {
     const ref = useRef<HTMLDivElement>(null)
     const [{ handlerId }, drop] = useDrop<
         DragItem,
@@ -34,10 +32,13 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex, in
         accept: ItemTypes.CARD,
         collect(monitor) {
             return {
-                handlerId: monitor.getHandlerId(),
+                canDrop: monitor.canDrop(),
+                handlerId: monitor.getHandlerId()
             }
         },
         hover(item: DragItem, monitor) {
+            item.type = type
+
             if (!ref.current) {
                 return
             }
@@ -88,7 +89,7 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex, in
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.CARD,
         item: () => {
-            return { id, index, columnIndex }
+            return { id, index, columnIndex, type }
         },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),

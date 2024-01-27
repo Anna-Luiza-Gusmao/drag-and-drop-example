@@ -1,18 +1,18 @@
 {
     "cardsList": {
         "toDo": [
-            { "id": 1, "text": "Estudar para a prova", "columnIndex": 0 },
-            { "id": 2, "text": "Arrumar a casa", "columnIndex": 0 },
-            { "id": 3, "text": "Passear com o cachorro", "columnIndex": 0 },
-            { "id": 4, "text": "Apresentar TCC", "columnIndex": 0 },
-            { "id": 5, "text": "Estudar para o trabalho", "columnIndex": 0 }
+            { "id": 1, "text": "Estudar para a prova", "columnIndex": 0, "type": "card" },
+            { "id": 2, "text": "Arrumar a casa", "columnIndex": 0, "type": "card" },
+            { "id": 3, "text": "Passear com o cachorro", "columnIndex": 0, "type": "card" },
+            { "id": 4, "text": "Apresentar TCC", "columnIndex": 0, "type": "card" },
+            { "id": 5, "text": "Estudar para o trabalho", "columnIndex": 0, "type": "card" }
         ],
         "inProgress": [
-            { "id": 1, "text": "Ir para a academia", "columnIndex": 1 },
-            { "id": 2, "text": "Ir para a natação", "columnIndex": 1 }
+            { "id": 1, "text": "Ir para a academia", "columnIndex": 1, "type": "card" },
+            { "id": 2, "text": "Ir para a natação", "columnIndex": 1, "type": "card" }
         ],
         "done": [
-            { "id": 1, "text": "Trabalhar", "columnIndex": 2 }
+            { "id": 1, "text": "Trabalhar", "columnIndex": 2, "type": "card" }
         ]
     }
 }

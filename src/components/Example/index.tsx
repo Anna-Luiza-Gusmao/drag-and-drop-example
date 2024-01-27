@@ -5,8 +5,9 @@ import CardsList from "./cardsList.json"
 
 export interface Item {
   id: number
-  text: string,
+  text: string
   columnIndex: number
+  type: string
 }
 
 export interface ContainerState {
@@ -30,6 +31,7 @@ export function Example() {
             id: 1,
             text: "Arraste um item para essa coluna",
             columnIndex: columnIndex,
+            type: "invisible_card"
           })
         }
       })
@@ -79,7 +81,7 @@ export function Example() {
           const newCards = ensureNonEmptyArrays(hoverColumnKey, updatedCards)
 
           if (newCards[hoverColumnKey].length === 2) {
-            newCards[hoverColumnKey] = newCards[hoverColumnKey].filter((card: Item) => card.text !== "Arraste um item para essa coluna")
+            newCards[hoverColumnKey] = newCards[hoverColumnKey].filter((card: Item) => card.type !== "invisible_card")
           }
 
           return newCards
@@ -97,7 +99,7 @@ export function Example() {
     }, [])
 
     const renderCard = useCallback(
-      (card: { id: number; text: string; columnIndex: number }, index: number) => {
+      (card: { id: number; text: string; columnIndex: number; type: string }, index: number) => {
         return (
           <Card
             key={card.id}
@@ -105,8 +107,9 @@ export function Example() {
             id={card.id}
             text={card.text}
             columnIndex={card.columnIndex}
+            type={card.type}
             moveCard={moveCard}
-            invisible={card.text === "Arraste um item para essa coluna" ? true : false}
+            invisible={card.type === "invisible_card" ? true : false}
           />
         )
       },
