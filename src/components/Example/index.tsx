@@ -98,31 +98,17 @@ export function Example() {
 
     const renderCard = useCallback(
       (card: { id: number; text: string; columnIndex: number }, index: number) => {
-        if (card.text === "Arraste um item para essa coluna") {
-          return (
-            <Card
-              key={card.id}
-              index={index}
-              id={card.id}
-              text={card.text}
-              columnIndex={card.columnIndex}
-              moveCard={moveCard}
-              invisible={true}
-            />
-          )
-        } else {
-          return (
-            <Card
-              key={card.id}
-              index={index}
-              id={card.id}
-              text={card.text}
-              columnIndex={card.columnIndex}
-              moveCard={moveCard}
-              invisible={false}
-            />
-          )
-        }
+        return (
+          <Card
+            key={card.id}
+            index={index}
+            id={card.id}
+            text={card.text}
+            columnIndex={card.columnIndex}
+            moveCard={moveCard}
+            invisible={card.text === "Arraste um item para essa coluna" ? true : false}
+          />
+        )
       },
       [moveCard],
     )
