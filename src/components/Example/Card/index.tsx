@@ -90,6 +90,7 @@ export const Card: FC<CardProps> = ({ id, text, index, moveCard, columnIndex, ty
         item: () => {
             return { id, index, columnIndex, type }
         },
+        canDrag: type === "invisible_card" ? false : true,
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),
