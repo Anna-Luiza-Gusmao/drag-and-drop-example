@@ -16,7 +16,7 @@ ou entre no link:
 
 ## 🎥 Demonstração 
 
-<img src="./github/demonstration.gif">
+<img src="./.github/demonstration.gif">
 
 
 ## 💻 Projeto
