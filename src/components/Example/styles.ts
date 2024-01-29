@@ -56,6 +56,11 @@ export const ColumnBox = styled.div`
 
     @media (min-width: 320px) and (max-width: 480px) {
         min-width: 20rem;
+        font-size: 0.875rem;
+
+        h3 {
+            font-size: 1rem;
+        }
     }
     @media (min-width: 481px) and (max-width: 1024px) {
         min-width: 24rem;

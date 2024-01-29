@@ -33,11 +33,12 @@ export const Container = styled.div`
         }
 
         h1 {
+            font-size: 1.75rem;
             padding-bottom: 0.75rem;
         }
     
         h2 {
-            font-size: 1.25rem;
+            font-size: 1rem;
         }
     }
     @media (min-width: 481px) and (max-width: 768px) {
